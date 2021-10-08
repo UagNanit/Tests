@@ -23,13 +23,6 @@ export default function App() {
   const [user, setUser] = useState(null);
   const [pending, setPending] = useState(true);
 
-  /*useEffect(() => {
-    storeCPlusPlus.questions.forEach(async (element) => {
-      const docRef = await addDoc(collection(db, storeCPlusPlus.name), element);
-      console.log("Document written with ID: ", docRef.id);
-    });
-  }, []);*/
-
   useEffect(() => {
     onAuthStateChanged(auth, (userAuth) => {
       setUser(userAuth);
