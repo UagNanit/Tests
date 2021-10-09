@@ -15,7 +15,14 @@ import ModalStartTest from "./ModalStartTest";
 import Modal from "@mui/material/Modal";
 
 import { app, db } from "../base";
-import { collection, getDocs } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  getDoc,
+  doc,
+  query,
+  where
+} from "firebase/firestore";
 
 export default function Start(props) {
   const auth = getAuth();
@@ -40,6 +47,17 @@ export default function Start(props) {
   const [testList, setTestList] = useState([]);
 
   useEffect(() => {
+    const temp = [];
+    const docRef = doc(db, "Users", userCon.reloadUserInfo.email);
+    getDoc(docRef).then((docSnap) => {
+      if (docSnap.exists()) {
+        docSnap.data().tests.forEach((el) => {
+          temp.push(el);
+        });
+        console.log(docSnap.data().tests);
+      }
+    });
+
     const dataFromDb = [];
     getDocs(collection(db, "testList")).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -49,14 +67,16 @@ export default function Start(props) {
 
       setTestList(
         dataFromDb.map((val) => {
-          return (
-            <FormControlLabel
-              key={val.key}
-              value={val.key}
-              control={<Radio />}
-              label={val.name}
-            />
-          );
+          if (temp.includes(val.name)) {
+            return (
+              <FormControlLabel
+                key={val.key}
+                value={val.key}
+                control={<Radio />}
+                label={val.name}
+              />
+            );
+          }
         })
       );
     });
