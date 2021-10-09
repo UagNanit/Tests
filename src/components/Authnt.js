@@ -105,7 +105,9 @@ export default function Authnt() {
             Incorrect Email or Password!
           </Alert>
         </Collapse>
-        <DialogTitle>Sign In<div>mail: user@gmail.com / pas: 123456</div></DialogTitle>
+        <div>mail: user@gmail.com / pas: 123456</div>
+        <div>mail: user3@gmail.com / pas: 123456</div>
+        <DialogTitle>Sign In</DialogTitle>
         <DialogContent>
           <DialogContentText style={{ fontWeight: "bold" }}>
             Enter email address and password
